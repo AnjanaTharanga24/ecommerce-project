@@ -8,7 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule, HttpClientModule],
-  templateUrl: './product-list-table.component.html',
+  templateUrl: './product-list-grid.component.html',
+  // templateUrl: './product-list-table.component.html',
   // templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })

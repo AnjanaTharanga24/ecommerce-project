@@ -1,0 +1,18 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid product-grid-container">
+        <div class="row">
+           <!-- loop over the collection of products -->
+            <div *ngFor="let tempProduct of products" class=" d-flex col-md-3 justify-content-center ">
+              <div class="product-box">
+                <img src="assets/images/placeholder.png" class="img-responsive" >
+                 <h1>{{tempProduct.name}}</h1>
+                 <div class="price">{{tempProduct.unitPrice | currency:'USD' }}</div>
+                 <a class="primary-btn text-decoration-none">Add to cart</a>
+              </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>
