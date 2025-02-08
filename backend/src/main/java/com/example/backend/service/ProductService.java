@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.controller.request.ProductRequest;
 import com.example.backend.controller.response.ProductResponse;
 import com.example.backend.entity.Product;
+import com.example.backend.entity.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,4 +15,5 @@ public interface ProductService {
     List<ProductResponse> getAllProducts();
 //    List<Product> findProductByCategory(Long id);
     Page<Product> findProductByCategory(Long id, Pageable pageable);
+    List<ProductCategory> getAllProductCategories();
 }
