@@ -15,6 +15,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   categoryId: number = 1;
+  searchMode: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -23,11 +24,35 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
-      this.listProducts(this.categoryId);
+      this.listProducts();
     });
   }
+
+  listProducts(){
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+
+    if(this.searchMode){
+       this.handleSearchProducts();
+    }
+    else{
+      this.handleListProducts();
+    }
   
-  listProducts(categoryId: number) {
+  }
+
+
+  handleSearchProducts() {
+    const theKeyword : string = this.route.snapshot.paramMap.get('keyword')!;
+
+    // now search for the products using keyword
+    this.productService.searchProducts(theKeyword).subscribe(
+      data =>{
+        this.products = data;
+      }
+    )
+  }
+  
+  handleListProducts() {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
   
     if (hasCategoryId) {
@@ -38,7 +63,7 @@ export class ProductListComponent implements OnInit {
   
     this.productService.getProductList(this.categoryId).subscribe(
       data => {
-        console.log("API Response:", data); // Debugging
+        console.log("API Response:", data);
         this.products = data;
       }
     );
