@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Product } from '../common/product';
+import { ProductCategory } from '../common/product-category';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,22 @@ export class ProductService {
 
   private baseUrl = 'http://localhost:8080/api/products';
 
+  private categoryUrl = 'http://localhost:8080/api/products/categories';
+
   constructor(private httpClient: HttpClient) { }
 
-  // getProductList(): Observable<Product[]> {
-  //   return this.httpClient.get<GetResponse>(this.baseUrl).pipe(
-  //     map(response => {
-  //       console.log('Response from backend:', response);
-  //       return response._embedded.products;
-  //     })
-  //   );
-  // }
-
-  getProductList(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.baseUrl);
+  getProductList(categoryId: number): Observable<Product[]> {
+    const searchUrl = `${this.baseUrl}/search/${categoryId}`;
+    return this.httpClient.get<{ content: Product[] }>(searchUrl).pipe(
+      map(response => response.content || []) 
+    );
   }
+
+  getProductCategories(): Observable<ProductCategory[]> {
+    return this.httpClient.get<ProductCategory[]>(this.categoryUrl);
+  }
+  
+
 }
 
 interface GetResponse {
