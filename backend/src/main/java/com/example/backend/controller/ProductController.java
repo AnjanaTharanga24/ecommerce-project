@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.controller.request.ProductRequest;
 import com.example.backend.controller.response.ProductResponse;
 import com.example.backend.entity.Product;
+import com.example.backend.entity.ProductCategory;
 import com.example.backend.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,10 @@ public class ProductController {
         Sort.Direction dir = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(dir, sortBy));
         return productService.findProductByCategory(id, pageable);
+    }
+
+    @GetMapping("/categories")
+    public List<ProductCategory> getAllProductCategories(){
+        return productService.getAllProductCategories();
     }
 }

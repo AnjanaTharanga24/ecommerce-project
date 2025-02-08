@@ -94,4 +94,11 @@ public class ProductServiceImpl implements ProductService {
         }
         return productRepository.findByCategoryId(id, pageable);
     }
+
+    @Override
+    public List<ProductCategory> getAllProductCategories() {
+
+        List<ProductCategory> categories = productCategoryRepository.findAll();
+        return categories;
+    }
 }
