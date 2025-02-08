@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class ProductCategory {
     private String categoryName;
 
     @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Product> productSet;
 
     public ProductCategory(){

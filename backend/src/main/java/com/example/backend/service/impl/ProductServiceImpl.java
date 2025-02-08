@@ -8,6 +8,8 @@ import com.example.backend.repository.ProductCategoryRepository;
 import com.example.backend.repository.ProductRepository;
 import com.example.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +85,13 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return responses;
+    }
+
+    @Override
+    public Page<Product> findProductByCategory(Long id, Pageable pageable) {
+        if (id == null){
+            throw new IllegalArgumentException("Category ID cannot be null");
+        }
+        return productRepository.findByCategoryId(id, pageable);
     }
 }
