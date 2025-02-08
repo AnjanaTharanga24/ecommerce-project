@@ -101,4 +101,15 @@ public class ProductServiceImpl implements ProductService {
         List<ProductCategory> categories = productCategoryRepository.findAll();
         return categories;
     }
+
+    @Override
+    public Page<Product> productsSearchByName(String name, Pageable pageable) {
+        Page<Product> searchProducts = productRepository.findByNameContaining(name,pageable);
+
+        if (searchProducts == null){
+            throw new IllegalArgumentException("Products not found with name " + name);
+        }
+
+        return searchProducts;
+    }
 }

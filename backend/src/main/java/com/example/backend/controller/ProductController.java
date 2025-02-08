@@ -52,4 +52,18 @@ public class ProductController {
     public List<ProductCategory> getAllProductCategories(){
         return productService.getAllProductCategories();
     }
+
+    @GetMapping("/names/{product-name}")
+    public Page<Product> findProductsByName(@PathVariable("product-name")String name,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size,
+                                                @RequestParam(defaultValue = "id") String sortBy,
+                                                @RequestParam(defaultValue = "asc") String direction){
+        Sort.Direction dir = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(dir, sortBy));
+
+        return productService.productsSearchByName(name,pageable);
+
+
+    }
 }
