@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -84,7 +85,23 @@ public class ProductServiceImpl implements ProductService {
             responses.add(response);
         }
 
+
+
         return responses;
+    }
+
+    @Override
+    public Product getProductById(Long id) {
+
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (!productOptional.isPresent()){
+            throw new RuntimeException("product not found with id " + id);
+        }
+
+        Product foundProduct = productOptional.get();
+
+        return foundProduct ;
     }
 
     @Override
